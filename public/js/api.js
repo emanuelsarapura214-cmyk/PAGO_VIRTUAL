@@ -1,5 +1,4 @@
-// Cliente HTTP para consumir la API protegida de MiPagoVirtual.
-// No colocar SUPABASE_SERVICE_ROLE_KEY en archivos del navegador.
+
 export async function apiRequest(path, { token, method = "GET", body } = {}) {
   if (!token) throw new Error("Iniciá sesión para continuar.");
   const response = await fetch(`/api/${path.replace(/^\/+/, "")}`, {

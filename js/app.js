@@ -1,8 +1,7 @@
 
 (() => {
-    // ==========================================
-    // 1. CONFIGURACIÓN INICIAL
-    // ==========================================
+   /* CONFIGURACIÓN INICIAL*/
+   
 
     const $ = (selector, root = document) =>
         root.querySelector(selector);
@@ -34,9 +33,8 @@
     };
 
 
-    // ==========================================
-    // 2. MENÚS SEGÚN EL ROL
-    // ==========================================
+    /* MENÚS SEGÚN EL ROL */
+   
 
     const nav = {
         usuario: [
@@ -69,10 +67,8 @@
     };
 
 
-    // ==========================================
-    // 3. CONTROL DE ACCESO Y NAVEGACIÓN
-    // ==========================================
-
+   /* CONTROL DE ACCESO Y NAVEGACIÓN */
+  
     if (folder) {
         if (!sessionStorage.getItem("mipv_role")) {
             location.href = base + "index.html";
@@ -188,7 +184,7 @@
         }
 
 
-        // Menú lateral
+        /*Menú lateral */
 
         const sidebar = $("#sidebar");
         const overlay = $("#mobileOverlay");
@@ -208,7 +204,7 @@
         });
 
 
-        // Modo claro y oscuro
+        /*Modo claro y oscuro*/
 
         const toggleTheme = () => {
             document.body.classList.toggle("light");
@@ -231,7 +227,7 @@
         });
 
 
-        // Cerrar sesión
+        /*Cerrar sesión */
 
         const logout = () => {
             sessionStorage.removeItem("mipv_role");
@@ -248,7 +244,7 @@
         });
 
 
-        // Buscador general
+        /* Buscador general */
 
         const search = $("#globalSearch");
 
@@ -287,11 +283,10 @@
     }
 
 
-    // ==========================================
-    // 4. FUNCIONES GENERALES
-    // ==========================================
+  /* FUNCIONES GENERALES */
+  
 
-    // Evita insertar texto ingresado por usuarios como HTML.
+    /* Evita insertar texto ingresado por usuarios como HTML.*/
 
     function escapeHTML(value) {
         return String(value ?? "").replace(/[&<>"']/g, character => ({
@@ -303,17 +298,17 @@
         }[character]));
     }
 
-    // Leer datos guardados.
+    /*Leer datos guardados. */
 
     const read = key =>
         JSON.parse(localStorage.getItem("mipv_" + key) || "[]");
 
-    // Guardar datos.
+    /* Guardar datos. */
 
     const write = (key, value) =>
         localStorage.setItem("mipv_" + key, JSON.stringify(value));
 
-    // Formato de dinero argentino.
+    /* Formato de dinero argentino.*/
 
     const fmt = value =>
         Number(value || 0).toLocaleString("es-AR", {
@@ -322,7 +317,7 @@
             maximumFractionDigits: 2
         });
 
-    // Insertar contenido en una tabla.
+    /*Insertar contenido en una tabla.*/
 
     const render = (id, html) => {
         const element = document.getElementById(id);
@@ -333,15 +328,14 @@
     };
 
 
-    // ==========================================
-    // 5. FORMULARIOS DE USUARIO
-    // ==========================================
+   /* FORMULARIOS DE USUARIO */
+
 
     document.querySelectorAll("form[data-demo-form]").forEach(form => {
         form.addEventListener("submit", event => {
             event.preventDefault();
 
-            // Formulario de inscripción.
+            /* Formulario de inscripción.*/
 
             if (form.querySelector("#categoria")) {
                 const item = {
@@ -375,7 +369,7 @@
                 form.reset();
             }
 
-            // Formulario de pagos.
+            /* Formulario de pagos. */
 
             else if (form.querySelector("#concepto")) {
                 const item = {
@@ -406,9 +400,8 @@
     });
 
 
-    // ==========================================
-    // 6. ENTRENADOR: USUARIOS INSCRIPTOS
-    // ==========================================
+  /* ENTRENADOR: USUARIOS INSCRIPTOS*/
+  
 
     const tbodyIns = $("#tablaInscriptos");
 
@@ -461,9 +454,8 @@
     }
 
 
-    // ==========================================
-    // 7. ENTRENADOR: CONSULTAR PAGOS
-    // ==========================================
+   /*ENTRENADOR: CONSULTAR PAGOS*/
+   
 
     if ($("#tablaPagos")) {
         const draw = () => {
@@ -511,9 +503,8 @@
     }
 
 
-    // ==========================================
-    // 8. ENTRENADOR: TOMAR ASISTENCIA
-    // ==========================================
+   /* ENTRENADOR: TOMAR ASISTENCIA */
+   
 
     if ($("#tablaAsistencia")) {
         const date = $("#fechaAsistencia");
@@ -560,7 +551,7 @@
 
         drawRoster();
 
-        // Guardar asistencia.
+        /* Guardar asistencia. */
 
         $("#guardarAsistencia").addEventListener("click", () => {
             const rows = [...document.querySelectorAll("[data-att]")];
@@ -593,7 +584,7 @@
             drawHistory();
         });
 
-        // Historial de asistencia.
+        /* Historial de asistencia. */
 
         const drawHistory = () => {
             const rows = read("asistencias").slice(-30).reverse();
@@ -627,9 +618,8 @@
     }
 
 
-    // ==========================================
-    // 9. ADMINISTRADOR: USUARIOS
-    // ==========================================
+   /* ADMINISTRADOR: USUARIOS */
+   
 
     if ($("#tablaUsuarios")) {
         const rows = read("usuarios");
@@ -657,9 +647,8 @@
     }
 
 
-    // ==========================================
-    // 10. ADMINISTRADOR: INSCRIPCIONES
-    // ==========================================
+  /* ADMINISTRADOR: INSCRIPCIONES */
+   
 
     if ($("#tablaInscripcionesAdmin")) {
         const draw = () => {
@@ -722,10 +711,8 @@
     }
 
 
-    // ==========================================
-    // 11. ADMINISTRADOR: ACTIVIDADES
-    // ==========================================
-
+ /* ADMINISTRADOR: ACTIVIDADES */
+   
     const defaultActivities = [
         {
             nombre: "Fútbol Infantil",
@@ -778,7 +765,7 @@
                     `
             );
 
-            // Eliminar actividad.
+            /* Eliminar actividad.*/
 
             document.querySelectorAll("[data-del-activity]").forEach(button => {
                 button.addEventListener("click", () => {
@@ -800,7 +787,7 @@
 
         draw();
 
-        // Crear actividad.
+        /* Crear actividad.*/
 
         $("#formActividad").addEventListener("submit", event => {
             event.preventDefault();
@@ -826,9 +813,8 @@
     }
 
 
-    // ==========================================
-    // 12. ADMINISTRADOR: PAGOS
-    // ==========================================
+    /* ADMINISTRADOR: PAGOS */
+  
 
     if ($("#tablaPagosAdmin")) {
         const draw = () => {
@@ -891,10 +877,8 @@
     }
 
 
-    // ==========================================
-    // 13. CONTADORES DE LOS PANELES
-    // ==========================================
-
+    /* CONTADORES DE LOS PANELES*/
+  
     const count = key => read(key).length;
 
     const counters = [
@@ -919,10 +903,8 @@
         }
     });
 
+  /* CONTADOR DE PAGOS PENDIENTES*/
 
-    // ==========================================
-    // 14. CONTADOR DE PAGOS PENDIENTES
-    // ==========================================
 
     const pending = read("pagos")
         .filter(item => item.estado === "Pendiente")
@@ -933,9 +915,8 @@
     }
 
 
-    // ==========================================
-    // 15. ESTADÍSTICAS DE PAGOS
-    // ==========================================
+   /* ESTADÍSTICAS DE PAGOS */
+    
 
     if ($("#tablaEstadisticasPagos")) {
         const payments = read("pagos");
@@ -960,9 +941,8 @@
     }
 
 
-    // ==========================================
-    // 16. ESTADÍSTICAS DE INSCRIPCIONES
-    // ==========================================
+   /* ESTADÍSTICAS DE INSCRIPCIONES */
+    
 
     if ($("#tablaEstadisticasInscripciones")) {
         const inscriptions = read("inscripciones");

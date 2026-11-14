@@ -1,6 +1,3 @@
--- MiPagoVirtual: perfil automático al crear usuario con Supabase Auth.
--- Ejecutar DESPUÉS de database/mipagovirtual.sql desde Supabase > SQL Editor.
--- El rol se fija en 'usuario': el navegador nunca puede autoconcederse privilegios.
 
 CREATE OR REPLACE FUNCTION public.mipv_crear_perfil_usuario()
 RETURNS TRIGGER LANGUAGE plpgsql SECURITY DEFINER SET search_path = ''
